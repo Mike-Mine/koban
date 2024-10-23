@@ -57,4 +57,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class);
     }
+
+    public function isClient(): bool
+    {
+        return $this->hasRole('client');
+    }
+
+    public function isSpecialist(): bool
+    {
+        return $this->hasRole('specialist');
+    }
 }

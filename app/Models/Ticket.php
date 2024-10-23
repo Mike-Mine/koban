@@ -13,6 +13,12 @@ class Ticket extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
+    protected $fillable = [
+        'title',
+        'specialist_id',
+        'client_id',
+    ];
+
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
@@ -26,5 +32,16 @@ class Ticket extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function scopeFilter($query): void
+    {
+        if (auth()->user()->isClient()) {
+            $query->where('client_id', auth()->user()->id);
+        } else {
+            $query->where(function ($q) {
+                $q->where('client_id', auth()->user()->id)->orWhere('specialist_id', auth()->user()->id);
+            });
+        }
     }
 }

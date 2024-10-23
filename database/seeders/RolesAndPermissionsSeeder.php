@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\UserRoles;
+use App\Enum\UserRoles;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
