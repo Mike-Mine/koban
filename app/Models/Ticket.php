@@ -38,10 +38,6 @@ class Ticket extends Model
     {
         if (auth()->user()->isClient()) {
             $query->where('client_id', auth()->user()->id);
-        } else {
-            $query->where(function ($q) {
-                $q->where('client_id', auth()->user()->id)->orWhere('specialist_id', auth()->user()->id);
-            });
         }
     }
 }

@@ -40,9 +40,13 @@ new class extends Component {
                 @foreach ($tickets as $ticket)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="px-4 py-3">
-                            <a href="#" class="hover:underline">
+                            <x-wireui:link
+                                :href="route('tickets.show', $ticket)"
+                                secondary
+                                wire:navigate
+                            >
                                 {{ $ticket->title }}
-                            </a>
+                            </x-wireui:link>
                         </td>
                         <td class="px-4 py-3">{{ $ticket->client->name }}</td>
                         <td class="px-4 py-3">
