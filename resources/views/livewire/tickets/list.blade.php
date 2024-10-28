@@ -25,7 +25,7 @@ new class extends Component {
                     {{ __('Last Updated') }}
                 </th>
                 <th class="px-4 py-3 font-bold rounded-tr-lg">
-                    {{ __('Actions') }}
+                    {{ __('Status') }}
                 </th>
             </tr>
         </thead>
@@ -52,15 +52,8 @@ new class extends Component {
                         <td class="px-4 py-3">
                             {{ $ticket->updated_at->diffForHumans() }}
                         </td>
-                        <td class="px-4 py-3">
-                            <x-wireui:mini-button
-                                icon="check"
-                                rounded
-                                outline
-                                rose
-                                interaction:solid="rose"
-                                size="xs"
-                            />
+                        <td class="px-4 py-3 {{ $ticket->status->color() }}">
+                            {{ $ticket->status->formatted() }}
                         </td>
                     </tr>
                 @endforeach

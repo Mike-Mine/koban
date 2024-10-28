@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\TicketStatuses;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,10 @@ class Ticket extends Model
         'title',
         'specialist_id',
         'client_id',
+    ];
+
+    protected $casts = [
+        'status' => TicketStatuses::class,
     ];
 
     public function messages(): HasMany

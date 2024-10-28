@@ -3,6 +3,7 @@
 namespace App\Livewire\Tickets;
 
 use App\Models\Ticket;
+use App\Services\TicketService;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -13,14 +14,19 @@ class Body extends Component
     #[Validate('required|string|max:255')]
     public string $message;
 
-    public function createMessage(): void
+    public function createMessage(TicketService $ticketService): void
     {
         $this->validate();
 
-        $this->ticket->messages()->create([
+        $message = $this->ticket->messages()->create([
             'content' => $this->message,
             'user_id' => auth()->user()->id,
         ]);
+
+        $ticketService->updateStatusOnMessage($this->ticket, $message);
+        $this->ticket->updated_at = $message->updated_at;
+
+        $this->ticket->save();
 
         $this->reset('message');
 
