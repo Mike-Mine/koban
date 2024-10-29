@@ -17,7 +17,7 @@ class Listing extends Component
     public function render()
     {
         return view('livewire.tickets.listing', [
-            'tickets' => Ticket::filter()->with('client:id,name', 'specialist:id,name')->orderBy('updated_at', 'desc')->paginate(10)
+            'tickets' => Ticket::filter()->with('client:id,name', 'specialist:id,name')->orderBy('updated_at', 'desc')->paginate(15)
         ]);
     }
 }

@@ -11,6 +11,9 @@
                 <th class="px-4 py-3 font-bold">
                     {{ __('Last Updated') }}
                 </th>
+                <th class="px-4 py-3 font-bold">
+                    {{ __('Assignee') }}
+                </th>
                 <th class="px-4 py-3 font-bold rounded-tr-lg">
                     {{ __('Status') }}
                 </th>
@@ -39,6 +42,7 @@
                         <td class="px-4 py-3">
                             {{ $ticket->updated_at->diffForHumans() }}
                         </td>
+                        <td class="px-4 py-3">{{ $ticket->specialist?->name ?? __('Unassigned') }}</td>
                         <td class="px-4 py-3 {{ $ticket->status->color() }}">
                             {{ $ticket->status->formatted() }}
                         </td>

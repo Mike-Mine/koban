@@ -15,12 +15,16 @@ class TicketService
      * @param Ticket $ticket The ticket to update.
      * @param Message $message The last message.
      */
-    public function updateStatusOnMessage(Ticket $ticket, Message $message): void
+    public function updateTicketOnMessage(Ticket $ticket, Message $message): void
     {
         if ($message->user->isClient()) {
             $ticket->status = TicketStatuses::OPEN;
         } else {
             $ticket->status = TicketStatuses::PENDING;
+
+            if (empty($ticket->specialist_id)) {
+                $ticket->specialist_id = $message->user_id;
+            }
         }
 
         $ticket->save();

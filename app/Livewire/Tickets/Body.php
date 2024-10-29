@@ -23,7 +23,7 @@ class Body extends Component
             'user_id' => auth()->user()->id,
         ]);
 
-        $ticketService->updateStatusOnMessage($this->ticket, $message);
+        $ticketService->updateTicketOnMessage($this->ticket, $message);
         $this->ticket->updated_at = $message->updated_at;
 
         $this->ticket->save();
