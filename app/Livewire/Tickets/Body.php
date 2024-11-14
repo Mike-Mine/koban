@@ -14,6 +14,16 @@ class Body extends Component
     #[Validate('required|string|max:255')]
     public string $message;
 
+    public int $selectedSpecialistId;
+    public string $search = '';
+
+    public function mount(Ticket $ticket): void
+    {
+        $this->ticket = $ticket;
+
+        $this->selectedSpecialistId = $ticket->specialist_id ?? 0;
+    }
+
     public function createMessage(TicketService $ticketService): void
     {
         $this->validate();
@@ -31,6 +41,14 @@ class Body extends Component
         $this->reset('message');
 
         $this->dispatch('message-added');
+    }
+
+    public function updatedSelectedSpecialistId(?int $value): void
+    {
+        $this->ticket->specialist_id = $value;
+        $this->ticket->save();
+
+        $this->dispatch('specialist-updated');
     }
 
     public function render()

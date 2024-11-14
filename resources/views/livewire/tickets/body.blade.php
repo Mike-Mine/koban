@@ -7,11 +7,28 @@
             @endif
         </div>
 
-        <div class="{{ $ticket->status->color() }}">
-            {{ $ticket->status->formatted() }}
+        <div class="flex items-center gap-4">
+            <x-action-message class="me-3" on="specialist-updated">
+                {{ __('Saved.') }}
+            </x-action-message>
+            <div class="w-48">
+                <x-wireui:select
+                    placeholder="Assignee"
+                    wire:model.live="selectedSpecialistId"
+                    :async-data="[
+                        'api' => route('api.users.index'),
+                        'params' => ['role' => 'specialist'],
+                        'credentials' => 'include',
+                    ]"
+                    option-label="name"
+                    option-value="id"
+                />
+            </div>
+            <div class="{{ $ticket->status->color() }}">
+                {{ $ticket->status->formatted() }}
+            </div>
         </div>
     </div>
-
     <div
         class="flex flex-col h-screen overflow-hidden"
         style="height: calc(100vh - 21rem)"
